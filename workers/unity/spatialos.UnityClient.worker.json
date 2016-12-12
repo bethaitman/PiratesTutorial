@@ -1,0 +1,67 @@
+{
+  "build": {
+    "tasks_filename": "spatialos.client.build.json",
+    "generated_build_scripts_type": "unity"
+  },
+  "bridge": {
+    "worker_claim": {
+      "claims": [
+        "visual"
+      ]
+    },
+    "entity_interest": {
+      "range_entity_interest": {
+        "radius": 2
+      }
+    },
+    "streaming_query": [
+      {
+        "bounded_component_streaming_query": {
+          "component_name": "improbable.terrain.Terrain",
+          "radius": 2000
+        }
+      }
+    ],
+    "component_delivery": {
+      "default": "RELIABLE_ORDERED",
+      "checkoutAllInitially": true
+    }
+  },
+  "external": {
+    "win": {
+      "run_type": "EXECUTABLE_ZIP",
+      "windows": {
+        "artifactName": "UnityClient@Windows.zip",
+        "command": "./UnityClient@Windows.exe",
+        "arguments": [
+          "+appName",
+          "${IMPROBABLE_PROJECT_NAME}",
+          "+localAssetDatabasePath",
+          "${IMPROBABLE_PROJECT_ROOT}/build/assembly",
+          "+useInternalIpForBridge",
+          "true",
+          "+linkProtocol",
+          "RakNet"
+        ]
+      }
+    },
+    "mac": {
+      "run_type": "EXECUTABLE",
+      "macos": {
+        "command": "open",
+        "arguments": [
+          "./build/worker/UnityClient@Mac/UnityClient@Mac.app",
+          "--args",
+          "+assetDatabaseStrategy",
+          "Local",
+          "+localAssetDatabasePath",
+          "${IMPROBABLE_PROJECT_ROOT}/build/assembly",
+          "+appName",
+          "${IMPROBABLE_PROJECT_NAME}",
+          "-logFile",
+          "${IMPROBABLE_PROJECT_ROOT}/logs/client.log"
+        ]
+      }
+    }
+  }
+}
